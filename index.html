@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eceae2">
+  <meta name="description" content="Explore 4,096 reproducible cellular automata experiments. 256 simple rules, eight starting states, and two kinds of edges.">
+  <title>Tiny Rule Atlas — An observation of emergence</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip-link" href="#explorer">Skip to explorer</a>
+  <header class="site-header page-width">
+    <a class="brand" href="#explorer" aria-label="Tiny Rule Atlas, explorer"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TINY RULE<br>ATLAS</span></a>
+    <nav aria-label="Main navigation"><a href="#explorer">Explorer</a><a href="#catalog">The atlas <span>↗</span></a><a href="#method">Method</a></nav>
+    <span class="edition">A STUDY IN EMERGENCE <span>№ 001</span></span>
+  </header>
+
+  <main class="page-width">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow"><span class="live-dot"></span> SIMPLE SYSTEMS / STRANGE BEHAVIOR</p><h1 id="page-title">Small rules.<br><em>Unruly worlds.</em></h1></div>
+      <div class="intro-aside"><p>Three neighbors. Two possible states.<br>Watch a single rule become a world.</p><div class="inventory"><span><strong>256</strong> rules</span><span><strong>8</strong> starting states</span><span><strong>2</strong> edges</span></div><p class="record-count">4,096 recorded experiments <span aria-hidden="true">↓</span></p></div>
+    </section>
+
+    <section id="explorer" class="explorer-section" aria-label="Interactive rule explorer" tabindex="-1">
+      <div class="section-line"><span><b>01</b> THE OBSERVATION WINDOW</span><span class="mono">128 CELLS × 128 UPDATES</span></div>
+      <div class="explorer-grid">
+        <div class="observation">
+          <div class="observation-header"><span id="observation-id">R030 / SINGLE / WRAP</span><span class="stored-indicator"><i></i> STORED TRAJECTORY</span></div>
+          <div class="plot-layout"><span class="time-axis">GENERATION <span aria-hidden="true">⟶</span></span><div class="plot-column"><div class="plot-top"><span>CELL 000</span><span>127</span></div><div class="canvas-wrap"><canvas id="trajectory" width="128" height="129" role="img" aria-label="Loading the selected cellular automaton trajectory"></canvas><p id="plot-state" class="plot-state" role="status">Loading the observation…</p></div><div class="plot-bottom"><span>GEN 000 → 128</span><span><i class="legend-cell"></i> LIVE CELL</span></div></div></div>
+          <div class="observation-footer"><p id="plot-caption">Each row is one generation. Time moves down.</p><a id="record-link" class="record-link" hidden target="_blank" rel="noopener">Raw record ↗</a></div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="controls-topline"><p class="eyebrow">CHOOSE A RULE</p><button id="surprise" class="text-button" type="button">Surprise me <span aria-hidden="true">↗</span></button></div>
+          <div class="rule-number-row"><label for="rule-number" class="visually-hidden">Rule number from 0 to 255</label><input id="rule-number" type="number" min="0" max="255" step="1" value="30" inputmode="numeric"><div class="rule-arrows"><button id="previous-rule" type="button" aria-label="Previous rule">←</button><button id="next-rule" type="button" aria-label="Next rule">→</button></div></div>
+          <label class="visually-hidden" for="rule-range">Rule slider, from 0 to 255</label><input id="rule-range" class="rule-range" type="range" min="0" max="255" value="30"><div class="range-labels" aria-hidden="true"><span>000</span><span>128</span><span>255</span></div>
+          <div class="input-group"><label for="seed">Starting state</label><div class="select-wrap"><select id="seed"><option value="single">Single cell</option><option value="pair">Adjacent pair</option><option value="block">Eight-cell block</option><option value="alternating">Alternating</option><option value="period3">Every third cell</option><option value="sparse">Sparse random</option><option value="balanced">Balanced random</option><option value="dense">Dense random</option></select><span aria-hidden="true">⌄</span></div><p id="seed-description" class="control-help">One live cell at the center of an empty world.</p></div>
+          <fieldset class="boundary-group"><legend>At the edges</legend><div class="segmented-control"><label><input type="radio" name="boundary" value="wrap" checked><span>Wrap around <b aria-hidden="true">↻</b></span></label><label><input type="radio" name="boundary" value="fixed"><span>Fixed zero <b aria-hidden="true">⊣</b></span></label></div><p id="boundary-description" class="control-help">The right edge connects back to the left.</p></fieldset>
+          <div class="rule-key"><div class="rule-key-label"><h2>The rule, in eight bits</h2><span id="rule-binary">00011110</span></div><div id="rule-diagram" class="rule-diagram" aria-label="Neighborhood to next-cell mappings"></div><p class="control-help">Three cells above decide the next cell below.</p></div>
+          <div class="cycle-status"><span class="cycle-marker" aria-hidden="true">↺</span><div><h3 id="cycle-title">Observing recurrence</h3><p id="cycle-detail">Checking for an exact repeated state.</p></div></div>
+          <button type="button" id="copy-link" class="share-button"><span>Copy this observation</span><span aria-hidden="true">↗</span></button><p id="share-status" class="share-status" role="status"></p>
+        </div>
+      </div>
+      <div class="metrics-heading"><h2>Read the behavior</h2><span>MEASURED OVER ALL 129 ROWS, UNLESS NOTED</span></div>
+      <div id="metrics" class="metrics-grid" aria-live="polite" aria-atomic="true">
+        <article class="metric"><h3>Live-cell density</h3><p class="metric-value" data-metric="density">—</p><p>Share of all cells that are live.</p><span data-metric="final_density">Final row: —</span></article>
+        <article class="metric"><h3>Activity</h3><p class="metric-value" data-metric="activity">—</p><p>Share of cells changing between successive rows.</p><span>Across 128 transitions</span></article>
+        <article class="metric"><h3>Perturbation spread</h3><p class="metric-value" data-metric="mean_damage">—</p><p>Mean difference after toggling the central starting cell.</p><span data-metric="final_damage">Final row: —</span></article>
+        <article class="metric"><h3>Occupancy entropy</h3><p class="metric-value" data-metric="entropy_bits">—</p><p>Binary Shannon entropy of the live/dead balance.</p><span>Balance, not complexity</span></article>
+        <article class="metric"><h3>Compression ratio</h3><p class="metric-value" data-metric="compression_ratio">—</p><p>Compressed bytes divided by packed trajectory bytes.</p><span>zlib, level 9 · a heuristic</span></article>
+      </div>
+    </section>
+
+    <section id="catalog" class="catalog-section" aria-labelledby="catalog-title">
+      <div class="section-line"><span><b>02</b> THE SPECIMEN COLLECTION</span><span class="mono">A FINITE SPACE, FULLY ENUMERATED</span></div>
+      <div class="section-heading"><div><p class="eyebrow">FIND A DIFFERENT WORLD</p><h2 id="catalog-title">Browse the atlas.</h2></div><p>Order gives way to repetition, motion, and surprise.<br>Select a specimen to open its recorded experiment.</p></div>
+      <form id="catalog-filters" class="catalog-filters" aria-label="Filter experiments">
+        <div><label for="catalog-search">Rule</label><input type="search" id="catalog-search" placeholder="Any, or 0–255" inputmode="numeric" autocomplete="off"></div>
+        <div><label for="catalog-seed">Starting state</label><select id="catalog-seed"><option value="">All starting states</option><option value="single" selected>Single cell</option><option value="pair">Adjacent pair</option><option value="block">Eight-cell block</option><option value="alternating">Alternating</option><option value="period3">Every third cell</option><option value="sparse">Sparse random</option><option value="balanced">Balanced random</option><option value="dense">Dense random</option></select></div>
+        <div><label for="catalog-boundary">Edges</label><select id="catalog-boundary"><option value="">All edges</option><option value="wrap" selected>Wrap around</option><option value="fixed">Fixed zero</option></select></div>
+        <div><label for="catalog-cycle">Recurrence</label><select id="catalog-cycle"><option value="">Any behavior</option><option value="detected">Cycle detected</option><option value="unobserved">No cycle observed</option></select></div>
+        <div><label for="catalog-sort">Order by</label><select id="catalog-sort"><option value="rule">Rule number</option><option value="activity">Most active</option><option value="damage">Most perturbation</option><option value="entropy">Highest occupancy entropy</option></select></div>
+      </form>
+      <div class="catalog-meta"><p id="catalog-summary" role="status">Loading specimens…</p><button id="reset-filters" class="text-button" type="button">Reset filters ↺</button></div>
+      <div id="catalog-grid" class="catalog-grid" aria-label="Experiment specimens"></div>
+      <div class="catalog-pagination"><button id="catalog-prev" type="button" disabled>← Previous</button><span id="catalog-page">Page —</span><button id="catalog-next" type="button" disabled>Next →</button></div>
+    </section>
+
+    <section id="method" class="method-section" aria-labelledby="method-title">
+      <div class="section-line"><span><b>03</b> NOTES ON THE METHOD</span><span class="mono">REPRODUCIBLE BY CONSTRUCTION</span></div>
+      <div class="method-layout"><div><p class="eyebrow">A LITTLE CONTEXT</p><h2 id="method-title">Look closely.<br>Measure carefully.</h2><p class="provenance">Generated computational experiments; one record per parameter combination.</p></div><div class="method-notes"><article><span>01 / THE SYSTEM</span><h3>A whole world in one line.</h3><p>Each of 128 cells is on or off. Its next state depends on itself and its two neighbors. The eight possible neighborhoods give us 256 rules. We record 128 updates, plus the initial row, for each rule, starting state, and boundary.</p></article><article><span>02 / REPRODUCIBILITY</span><h3>Nothing up our sleeves.</h3><p>Every observation is a stored trajectory with a SHA-256 digest. Random starting states use a fixed xorshift32 seed; sparse, balanced, and dense states are deliberately nested. Catalog previews run the same rule locally. The main window displays the stored rows.</p></article><article><span>03 / INTERPRETATION</span><h3>No single score means “complex.”</h3><p>Occupancy entropy measures live/dead balance, not algorithmic complexity. Compression is a descriptive heuristic that depends on the zlib implementation. Perturbation compares a run with another whose central starting cell is toggled.</p></article><article><span>04 / RECURRENCE</span><h3>A short window is still a window.</h3><p>A detected cycle is an exact repetition of a full state in this finite deterministic system. “No cycle observed” only covers these 128 updates. It does not rule out a later cycle.</p></article></div></div>
+    </section>
+  </main>
+  <footer class="site-footer page-width"><a class="footer-brand" href="#explorer">TINY RULE ATLAS <span>↗</span></a><p>Simple ingredients. Emergent behavior.</p><a href="docs/data-contract.md">Data contract ↗</a><a href="https://github.com/Tradelord223/tiny-rule-atlas">Source on GitHub ↗</a></footer>
+  <noscript><p class="noscript-message">This explorer needs JavaScript. The complete experiment data and schema remain available in the repository.</p></noscript>
+</body>
+</html>

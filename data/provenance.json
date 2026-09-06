@@ -1,0 +1,8 @@
+{
+  "generator": "tiny-rule-atlas",
+  "python_implementation": "CPython",
+  "python_version": "3.14.7",
+  "schema_version": 1,
+  "zlib_runtime_version": "1.2.12",
+  "zlib_version": "1.2.12"
+}
