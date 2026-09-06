@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eceae2">
+  <meta name="description" content="Six guided investigations in cellular automata: controls, boundary effects, perturbations, computation, traffic, and natural patterns. A reproducible field guide for curious people and classrooms.">
+  <title>Field Guide — Tiny Rule Atlas</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/field-guide.css">
+</head>
+<body class="field-guide">
+  <a class="skip-link" href="#guide">Skip to field guide</a>
+  <header class="site-header page-width">
+    <a class="brand" href="index.html" aria-label="Tiny Rule Atlas, home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TINY RULE<br>ATLAS</span></a>
+    <nav aria-label="Main navigation"><a href="index.html">Atlas</a><a href="laboratory.html">Laboratory</a><a href="field-guide.html" aria-current="page">Field guide</a><a href="https://github.com/Tradelord223/tiny-rule-atlas">Source <span aria-hidden="true">↗</span></a></nav>
+    <span class="edition">LABORATORY EDITION <span>№ 002</span></span>
+  </header>
+
+  <main id="guide" class="page-width" tabindex="-1">
+    <section class="fg-intro" aria-labelledby="guide-title">
+      <div>
+        <p class="fg-kicker">THE FIELD GUIDE / SIX INVESTIGATIONS</p>
+        <h1 id="guide-title">Look closer.<br><em>Ask better questions.</em></h1>
+        <p class="fg-lead">A striking pattern is a beginning. Change an assumption, make a prediction, and find out what the picture can actually tell you.</p>
+      </div>
+      <aside class="fg-notebook" aria-label="Guide at a glance">
+        <span class="fg-kicker">A SMALL EXPERIMENTAL PRACTICE</span>
+        <p>Predict.<br> Run.<br> Measure.<br> <em>Revise.</em></p>
+        <div><span>Start anywhere</span><span>6 guided studies</span></div>
+        <div><span>For the classroom</span><a href="#classroom">One 45-minute lesson <span aria-hidden="true">↓</span></a></div>
+        <div><span>Prior knowledge</span><span>Curiosity is enough</span></div>
+      </aside>
+    </section>
+
+    <div class="fg-ground-rule"><span class="fg-kicker">FIRST PRINCIPLE</span><p>These are exact experiments in a finite model. Their value is learning to separate <strong>what we observed</strong>, <strong>what the rule guarantees</strong>, and <strong>what needs evidence from elsewhere</strong>.</p></div>
+
+    <div class="fg-body">
+      <aside class="fg-sidebar">
+        <nav class="fg-contents" aria-label="Field guide contents">
+          <p class="fg-kicker">IN THIS NOTEBOOK</p>
+          <a href="#controls"><span>01</span> Trust your instruments</a>
+          <a href="#boundaries"><span>02</span> The edge changes the story</a>
+          <a href="#perturbation"><span>03</span> Follow one changed bit</a>
+          <a href="#computation"><span>04</span> A world that can compute</a>
+          <a href="#traffic"><span>05</span> When more means less</a>
+          <a href="#nature"><span>06</span> From pattern to mechanism</a>
+          <div class="fg-contents-tools"><a href="#metrics">Read the measurements</a><a href="#classroom">Teach a 45-minute lesson</a><a href="#replication">Replication checklist</a><a href="#sources">Primary reading</a></div>
+        </nav>
+      </aside>
+
+      <div class="fg-reading">
+        <section class="fg-foundations" aria-labelledby="basics-title">
+          <p class="fg-kicker">BEFORE THE FIRST RUN</p>
+          <h2 id="basics-title">One row is space.<br>The next row is time.</h2>
+          <p>Each cell is either 0 or 1. Its left neighbor, itself, and its right neighbor determine its next state. All cells update together. Eight possible neighborhoods, each with two possible outputs, give 256 elementary rules. The rule number encodes that eight-bit lookup table. <a class="fg-cite" href="#source-numbering">[1]</a></p>
+          <div class="fg-definition-grid">
+            <div><h3>Wrap around</h3><p>The rightmost and leftmost cells are neighbors. Imagine a ring, cut open only for display.</p></div>
+            <div><h3>Fixed zero</h3><p>Neighbors outside the row always read as zero. Edge cells still update; they are not pinned.</p></div>
+          </div>
+          <p>The stored atlas is <strong>256 rules × 8 seeds × 2 boundaries</strong>, each at 128 cells and 128 updates. The laboratory creates additional runs in your browser. It preserves the stored collection and makes no claim to exhaust every starting state.</p>
+        </section>
+
+        <article id="controls" class="fg-investigation" aria-labelledby="controls-title">
+          <header><span class="fg-number">01</span><div><p class="fg-kicker">RULES 0 &amp; 204 / EXPERIMENTAL CONTROLS</p><h2 id="controls-title">Trust your instruments.</h2></div></header>
+          <p class="fg-deck">An experiment with an obvious answer can reveal a misleading measurement.</p>
+          <p>Rule 0 always outputs zero. Rule 204 always copies the center cell. You can establish both facts by reading their eight neighborhood cases, before running a simulation. These are useful controls: one erases a seed after an update, and the other keeps it forever.</p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>If Rule 204 preserves a perfectly alternating row, can its occupancy entropy be maximal while its activity is zero?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>128 cells, 128 updates, wrap boundaries. Compare <strong>0 / single</strong> against <strong>204 / alternating</strong>. Keep the central one-bit perturbation for both.</dd></div>
+            <div><dt>Measure</dt><dd>Inspect generation 0, generation 1, final density, activity, occupancy entropy, and the difference view. For Rule 204, check whether every row is identical.</dd></div>
+            <div><dt>Expect</dt><dd>Rule 204 has occupancy entropy 1 bit and activity 0. Its one-bit difference persists: damage is 1/128 at every generation. Rule 0 has final damage 0, though mean damage includes the changed initial row.</dd></div>
+          </dl>
+          <p class="fg-limit"><strong>Keep the claim narrow.</strong> Occupancy entropy counts the balance of zeros and ones. It ignores their arrangement. A high value does not establish randomness or complex evolution.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>A metric becomes useful when you know a case that would fool it.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=128&amp;steps=128&amp;aRule=0&amp;aSeed=single&amp;aBoundary=wrap&amp;bRule=204&amp;bSeed=alternating&amp;bBoundary=wrap">Run the two controls <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article id="boundaries" class="fg-investigation" aria-labelledby="boundaries-title">
+          <header><span class="fg-number">02</span><div><p class="fg-kicker">RULE 90 / FINITE SIZE &amp; BOUNDARIES</p><h2 id="boundaries-title">The edge changes the story.</h2></div></header>
+          <p class="fg-deck">The familiar triangle has a less familiar ending on a small ring.</p>
+          <p>Rule 90 outputs the XOR of the left and right neighbors: a cell becomes live when exactly one of them is live. The single-cell pattern is a classic example of nested structure. <a class="fg-cite" href="#source-rule90">[2]</a> On the atlas’s 128-cell ring, however, every cell becomes zero at generation 64.</p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>Will the triangle disappear at the same time if the two edges stop talking to each other?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>Rule 90, single seed, 128 cells, 128 updates. Compare wrap with fixed zero. Move to generation 64. Then repeat at widths 64 and 256.</dd></div>
+            <div><dt>Measure</dt><dd>Count live cells at generation 64 and inspect exact recurrence. On the 128-cell ring, the empty row first occurs at 64 and repeats at 65. With fixed zero, one live cell remains at 64.</dd></div>
+            <div><dt>Explain</dt><dd>XOR is addition modulo two. After 64 updates, the two contributing copies of a seed are shifted 64 cells left and right. On a ring of length 128 those positions coincide, so they cancel. The same argument gives an empty row by width/2 for these power-of-two rings.</dd></div>
+          </dl>
+          <p class="fg-limit"><strong>A useful confound.</strong> All three browser widths—64, 128, and 256—are powers of two. Repeating the result at those widths does not test an arbitrary ring. Use the <a href="https://github.com/Tradelord223/tiny-rule-atlas/blob/main/docs/laboratory-methods.md#non-power-of-two-extension">127/129-cell extension</a> to change that assumption.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>Your world’s size and edges are part of the model, not merely the frame around its image.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=128&amp;steps=128&amp;aRule=90&amp;aSeed=single&amp;aBoundary=wrap&amp;bRule=90&amp;bSeed=single&amp;bBoundary=fixed&amp;generation=64">Compare the two boundaries <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article id="perturbation" class="fg-investigation" aria-labelledby="perturbation-title">
+          <header><span class="fg-number">03</span><div><p class="fg-kicker">RULE 30 / SENSITIVITY TO INITIAL CONDITIONS</p><h2 id="perturbation-title">Follow one changed bit.</h2></div></header>
+          <p class="fg-deck">A difference map turns “these look different” into a precise question.</p>
+          <p>Rule 30’s irregular single-cell pattern helped motivate the study of simple rules with complicated output. <a class="fg-cite" href="#source-rule30">[3]</a> Here, explore a more specific question: how much does one changed starting cell alter this particular finite trajectory?</p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>Will a one-cell difference disappear, remain localized, or spread? Will the answer depend on whether the initial row is empty around it?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>Rule 30, 128 cells, 256 updates, wrap. Compare single and balanced seeds. Select the difference view in both panels. Each panel compares its own seed with a copy in which only the center bit is toggled.</dd></div>
+            <div><dt>Measure</dt><dd>Read damage at generations 0, 16, 32, 64, 128, and 256. Record the maximum you observe and whether it later decreases. Compare the final value with the time average.</dd></div>
+            <div><dt>Check the control</dt><dd>For the single seed, toggling the center removes its only live cell. The comparison run stays empty under Rule 30. Its damage therefore equals the original run’s live-cell density at every generation. This is a special comparison, not a generic perturbation sample.</dd></div>
+          </dl>
+          <p class="fg-limit"><strong>Damage is a measurement, not a diagnosis.</strong> One location, one seed, and one time window do not establish mathematical chaos, a Lyapunov exponent, cryptographic quality, or fundamental unpredictability. On a ring, differences may eventually wrap around and interact.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>Write down exactly what you changed. Even a one-bit intervention can have a very special meaning.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=128&amp;steps=256&amp;aRule=30&amp;aSeed=single&amp;aBoundary=wrap&amp;aView=difference&amp;bRule=30&amp;bSeed=balanced&amp;bBoundary=wrap&amp;bView=difference">Track the perturbations <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article id="computation" class="fg-investigation" aria-labelledby="computation-title">
+          <header><span class="fg-number">04</span><div><p class="fg-kicker">RULE 110 / COMPUTATIONAL UNIVERSALITY</p><h2 id="computation-title">A world that can compute.</h2></div></header>
+          <p class="fg-deck">An important theorem starts where visual resemblance stops.</p>
+          <p>Matthew Cook proved that Rule 110 can support universal computation by constructing an encoding through cyclic tag systems and interacting structures. His construction uses an infinite row with carefully arranged, repeating material around the encoded data. This is a claim about computational capability under suitable conditions. <a class="fg-cite" href="#source-cook">[4]</a></p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>What would you need to observe to distinguish a moving pattern from a signal that encodes and transforms information?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>Rule 110, 128 cells, 512 updates, wrap. Compare single and balanced seeds. Inspect repeated textures and the boundaries between them at several generations.</dd></div>
+            <div><dt>Measure</dt><dd>Choose one recognizable structure. Track its position and shape over several updates. Ask whether it repeats in place, translates, changes after a collision, or only appears similar at the display’s scale.</dd></div>
+            <div><dt>Go deeper</dt><dd>Read Cook’s sections 3 and 4. Identify the background, the symbols being encoded, and the collision rules used by the construction. List the pieces that this browser experiment does not implement.</dd></div>
+          </dl>
+          <p class="fg-limit"><strong>The laboratory is not a universality test.</strong> These ordinary finite seeds do not recreate Cook’s construction. Every fixed finite run has only finitely many states and eventually repeats; finding or failing to find a cycle here cannot settle the infinite-system theorem.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>Capability, construction, and observation are different kinds of evidence. Name which one you have.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=128&amp;steps=512&amp;aRule=110&amp;aSeed=single&amp;aBoundary=wrap&amp;bRule=110&amp;bSeed=balanced&amp;bBoundary=wrap">Inspect Rule 110 <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article id="traffic" class="fg-investigation" aria-labelledby="traffic-title">
+          <header><span class="fg-number">05</span><div><p class="fg-kicker">RULE 184 / DENSITY, FLOW &amp; CONSERVATION</p><h2 id="traffic-title">When more means less.</h2></div></header>
+          <p class="fg-deck">A road needs vehicles to carry flow. It also needs empty space.</p>
+          <p>Interpret a live cell as one car. Rule 184 moves it one cell right if the next cell is empty; otherwise it stays put. On a ring, this rearranges cars while preserving their total number. The movement interpretation follows directly from the rule’s lookup table. <a class="fg-cite" href="#source-rule184">[5]</a></p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>Which road carries more flow: 32, 64, or 96 cars on a 128-cell ring? Why might adding cars eventually lower throughput?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>Use the traffic experiment: 128 cells, 256 updates, wrap, shuffle seed 12648430. Run exact counts of 32, 64, and 96 cars. The initial arrangements use a deterministic shuffle, not the atlas’s approximate sparse/balanced/dense seeds.</dd></div>
+            <div><dt>Measure</dt><dd>Confirm the count stays constant. Read instantaneous flow and the mean over the final 128 updates. Flow is the fraction of cells containing a car with an empty right neighbor before an update.</dd></div>
+            <div><dt>Compare with theory</dt><dd>For this deterministic ring, the long-run relation is <code>q∞ = min(ρ, 1 − ρ)</code>. <a class="fg-cite" href="#source-fundamental">[8]</a> Flow is limited by cars below half occupancy and by empty spaces above it. The asymptotic values for these counts are 0.25, 0.50, and 0.25. Check the finite run against that expectation.</dd></div>
+          </dl>
+          <p>In their 1992 freeway model, Nagel and Schreckenberg added multiple speed states and probabilistic slowing, and compared simulated behavior with real traffic observations. Rule 184 captures only the deterministic, one-cell-speed limiting case; this laboratory does not implement their full model. <a class="fg-cite" href="#source-traffic">[6]</a></p>
+          <p class="fg-limit"><strong>Keep the units honest.</strong> These are dimensionless model flows, not vehicles per hour. There is no calibration to a road, driver reaction time, lane change, or detector dataset. With fixed-zero boundaries, cars can leave at the right and none enter from the left, so the ring’s conservation and flow relation no longer apply.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>A minimal model can isolate a constraint without becoming a forecast of the world.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=128&amp;steps=256&amp;aRule=184&amp;aSeed=balanced&amp;aBoundary=wrap&amp;bRule=184&amp;bSeed=balanced&amp;bBoundary=fixed&amp;trafficCount=64&amp;trafficSeed=12648430&amp;trafficGeneration=0&amp;section=traffic">Open the traffic experiment <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article id="nature" class="fg-investigation fg-nature" aria-labelledby="nature-title">
+          <header><span class="fg-number">06</span><div><p class="fg-kicker">NATURAL PATTERNS / MODEL &amp; MECHANISM</p><h2 id="nature-title">From pattern to mechanism.</h2></div></header>
+          <p class="fg-deck">A resemblance can suggest a question. It cannot answer it by itself.</p>
+          <figure class="fg-shell-figure">
+            <img src="assets/images/shell-study-v2.png" width="1536" height="1024" loading="lazy" decoding="async" alt="AI-generated close view of a cream shell with brown netlike pigmentation and fine surface texture, resting on dark stone.">
+            <figcaption><span class="fg-kicker">ILLUSTRATION / THE NATURAL WORLD</span><p><strong>AI-generated editorial illustration; not a measured specimen.</strong> This image is not a cellular automaton output or biological evidence.</p></figcaption>
+          </figure>
+          <p>Shell pigmentation is deposited as the animal grows. Boettiger, Ermentrout, and Oster proposed a neurosecretory model in which local excitation and lateral inhibition produce a range of patterns, and compared its responses to growth and disruption with shell examples. Their model contains biological assumptions and interactions beyond a binary three-neighbor rule. <a class="fg-cite" href="#source-shells">[7]</a></p>
+          <div class="fg-prediction"><span class="fg-kicker">PREDICT BEFORE YOU RUN</span><p>If two processes make similar stripes or triangles, what additional observation could tell their mechanisms apart?</p></div>
+          <dl class="fg-protocol">
+            <div><dt>Set up</dt><dd>Compare Rules 90 and 30, both single seed, 256 cells, 128 updates, fixed zero. Treat these as pattern-generating models. Read the shell paper’s growth and perturbation examples alongside them.</dd></div>
+            <div><dt>Measure</dt><dd>Choose a feature before looking: repeated spacing, direction of a boundary, or a response to a local interruption. State how you would measure it in each system. Record which units or biological variables the automaton lacks.</dd></div>
+            <div><dt>Design the next test</dt><dd>Propose a prediction beyond appearance—for example, how a measured pigmentation process responds to an injury or to a wider growth edge. Explain which observations would disagree with the proposed mechanism.</dd></div>
+          </dl>
+          <p class="fg-limit"><strong>Analogy has a boundary.</strong> The illustration above supplies no observations to fit or validate. This site does not simulate a shell’s growth, identify its species, or infer a biological mechanism. Use measured specimens and the paper’s documented evidence for biological claims.</p>
+          <div class="fg-takeaway"><span>TAKEAWAY</span><p>The most productive resemblance leads to a test that could prove your explanation wrong.</p></div>
+          <a class="fg-action" href="laboratory.html#v=1&amp;width=256&amp;steps=128&amp;aRule=90&amp;aSeed=single&amp;aBoundary=fixed&amp;bRule=30&amp;bSeed=single&amp;bBoundary=fixed">Compare two pattern makers <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <section id="metrics" class="fg-reference" aria-labelledby="metric-title">
+          <p class="fg-kicker">KEEP BESIDE THE EXPERIMENT</p>
+          <h2 id="metric-title">Read the measurements.</h2>
+          <p>A summary is useful when its denominator, time window, and blind spots are explicit. Generation zero is the seed; <var>S</var> updates produce <var>S</var> + 1 rows.</p>
+          <div class="fg-table-wrap" role="region" aria-labelledby="metric-title" tabindex="0">
+            <table><caption>What the atlas and laboratory measurements do—and do not—establish.</caption><thead><tr><th scope="col">Measurement</th><th scope="col">What it counts</th><th scope="col">A boundary on interpretation</th></tr></thead><tbody>
+              <tr><th scope="row">Density</th><td>Live cells divided by cells counted. Overall density includes every row; final density uses only the last.</td><td>The same density can describe a block, stripes, or an irregular arrangement.</td></tr>
+              <tr><th scope="row">Activity</th><td>Fraction of cells changing between successive generations; overall activity averages the transitions.</td><td>Motion and regular oscillation can both produce high activity.</td></tr>
+              <tr><th scope="row">Occupancy entropy</th><td>Binary Shannon entropy of the overall live/dead frequency, from 0 to 1 bit.</td><td>Measures balance, not ordering, entropy rate, or algorithmic complexity.</td></tr>
+              <tr><th scope="row">Damage</th><td>Fraction of positions differing between the original and its one-bit-perturbed run, at the same generation.</td><td>Final damage may hide earlier spread and recovery. The mean includes generation zero.</td></tr>
+              <tr><th scope="row">Exact cycle</th><td>First repeated complete row. Its period is the difference between the two generation indices.</td><td>No repeat observed within the chosen window does not mean no eventual cycle.</td></tr>
+              <tr><th scope="row">Compression ratio<br><span class="fg-table-note">Stored atlas only</span></th><td>zlib-compressed packed trajectory bytes divided by uncompressed bytes.</td><td>A compressor-dependent heuristic, not a complexity proof. Byte layout and zlib version matter.</td></tr>
+              <tr><th scope="row">Traffic flow</th><td>Cars eligible to move right divided by 128, before an update. Late flow averages the last 128 updates.</td><td>Defined here for Rule 184’s periodic traffic experiment; has no calibrated road units.</td></tr>
+            </tbody></table>
+          </div>
+          <p class="fg-method-link">For equations, seed construction, export scope, and reproduction code, read the <a href="https://github.com/Tradelord223/tiny-rule-atlas/blob/main/docs/laboratory-methods.md">laboratory methods</a> and <a href="https://github.com/Tradelord223/tiny-rule-atlas/blob/main/docs/methodology.md">stored-atlas methodology</a>.</p>
+        </section>
+
+        <section id="classroom" class="fg-classroom" aria-labelledby="classroom-title">
+          <div class="fg-classroom-heading"><div><p class="fg-kicker">A READY-TO-TEACH SESSION</p><h2 id="classroom-title">Forty-five minutes.<br>One better explanation.</h2></div><span class="fg-duration">45<span>MINUTES</span></span></div>
+          <p>For pairs or small groups. One browser per group, paper for predictions, and no coding prerequisite. The learning objective is to justify a conclusion with a controlled comparison and an explicit limit.</p>
+          <ol class="fg-lesson">
+            <li><span>00–05</span><div><h3>Make one update by hand</h3><p>Read the eight-bit rule table. Update a short row together and agree that every cell uses the previous row, not partially updated neighbors.</p></div></li>
+            <li><span>05–12</span><div><h3>Calibrate with the controls</h3><p>Run investigation 01. Each pair explains how entropy can equal one while activity equals zero. Ask for a prediction before showing the measurements.</p></div></li>
+            <li><span>12–22</span><div><h3>Change only the boundary</h3><p>Run investigation 02. Save the exact two configurations, the generation being compared, and a screenshot or CSV. Discuss why the picture’s edge is an experimental choice.</p></div></li>
+            <li><span>22–32</span><div><h3>Investigate a question</h3><p>Choose perturbations or traffic. Write a hypothesis, choose one variable to change, record two runs, and look for evidence that would challenge the hypothesis.</p></div></li>
+            <li><span>32–40</span><div><h3>Exchange and reproduce</h3><p>Give another pair your run link and prediction. They reproduce the result and check whether your conclusion follows from the measured quantity.</p></div></li>
+            <li><span>40–45</span><div><h3>Leave with a bounded claim</h3><p>Complete: “Under these conditions, we observed ____. This supports ____. It does not establish ____. Our next test would change ____.”</p></div></li>
+          </ol>
+          <p class="fg-classroom-note"><strong>Assessment:</strong> look for one accurately stated observation, one controlled comparison, and one meaningful limitation. A surprising image alone is not the learning outcome.</p>
+        </section>
+
+        <section id="replication" class="fg-reference" aria-labelledby="replication-title">
+          <p class="fg-kicker">MAKE THE RESULT TRAVEL</p>
+          <h2 id="replication-title">A replication checklist.</h2>
+          <ol class="fg-checklist">
+            <li><strong>Record the complete setup.</strong> Rule, boundary, width, updates, initial row or named seed, and perturbation index. For traffic, record exact car count and shuffle seed.</li>
+            <li><strong>State the comparison first.</strong> Identify the one variable being changed. If more than one changes, name the confound rather than hiding it.</li>
+            <li><strong>Keep values with their window.</strong> Record generation indices and distinguish final values from averages. A screenshot alone does not preserve the full state history.</li>
+            <li><strong>Save the run and the data.</strong> Copy the laboratory link, export JSON for the full numerical run, and use CSV for generation-level measurements. Keep PNGs as illustrations of the selected view.</li>
+            <li><strong>Try a disconfirming case.</strong> Change a seed, boundary, duration, or size that could reasonably break your explanation. More runs of the same special case are not independence.</li>
+            <li><strong>Separate provenance from interpretation.</strong> Dynamic runs are browser simulations, the 4,096 stored records are generated computational data, and editorial images are AI-generated illustrations.</li>
+          </ol>
+          <div class="fg-claim-card"><p class="fg-kicker">A CLAIM THAT CAN BE CHECKED</p><p>“For Rule 90, a single seed on a 128-cell ring is empty at generation 64.”</p><span>It names the rule, starting state, domain, boundary, time, and observable. A reader knows exactly how to challenge it.</span></div>
+        </section>
+
+        <section id="sources" class="fg-sources" aria-labelledby="sources-title">
+          <p class="fg-kicker">PRIMARY READING / FOLLOW THE ARGUMENT</p>
+          <h2 id="sources-title">Where these ideas come from.</h2>
+          <p>The investigations and teaching prompts are authored for this project. The sources below support the historical examples and external scientific claims. Exact finite-run statements can be checked against the atlas and laboratory.</p>
+          <ol>
+            <li id="source-numbering"><a href="https://www.wolframscience.com/nks/p53--more-cellular-automata/">Stephen Wolfram, <cite>A New Kind of Science</cite>, p. 53 (2002) <span aria-hidden="true">↗</span></a><p>Elementary rules and the numbering convention.</p></li>
+            <li id="source-rule90"><a href="https://www.wolframscience.com/nks/p25--how-do-simple-programs-behave/">Wolfram, <cite>A New Kind of Science</cite>, p. 25 (2002) <span aria-hidden="true">↗</span></a><p>The XOR update and nested single-cell pattern of Rule 90. The finite-ring cancellation argument in this guide is an algebraic consequence, not a new discovery.</p></li>
+            <li id="source-rule30"><a href="https://www.wolframscience.com/nks/p27--how-do-simple-programs-behave/">Wolfram, <cite>A New Kind of Science</cite>, p. 27 (2002) <span aria-hidden="true">↗</span></a><p>The Rule 30 example; a starting point for investigating irregular deterministic output.</p></li>
+            <li id="source-cook"><a href="https://content.wolfram.com/sites/13/2023/02/15-1-1.pdf">Matthew Cook, “Universality in Elementary Cellular Automata,” <cite>Complex Systems</cite> 15, 1–40 (2004) <span aria-hidden="true">↗</span></a><p>The constructive proof for Rule 110. Sections 3–4 explain the structures and encoding; this is much stronger evidence than visual inspection.</p></li>
+            <li id="source-rule184"><a href="https://atlas.wolfram.com/01/01/184/01_01_1_184.html">Wolfram Atlas, “Rule 184: Rule properties” <span aria-hidden="true">↗</span></a><p>The update rule underlying the minimal particle interpretation.</p></li>
+            <li id="source-traffic"><a href="https://web2.qatar.cmu.edu/~gdicaro/15382/additional/NagelSchr-model.pdf">Kai Nagel &amp; Michael Schreckenberg, “A cellular automaton model for freeway traffic,” <cite>Journal de Physique I</cite> 2, 2221–2229 (1992) <span aria-hidden="true">↗</span></a><p>Primary paper, university-hosted copy. Multiple speeds, random slowing, and comparisons with real traffic; distinct from the deterministic Rule 184 experiment. DOI: 10.1051/jp1:1992277.</p></li>
+            <li id="source-shells"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2672551/">Alistair Boettiger, Bard Ermentrout &amp; George Oster, “The neural origins of shell structure and pattern in aquatic mollusks,” <cite>PNAS</cite> 106, 6837–6842 (2009) <span aria-hidden="true">↗</span></a><p>A mechanistic neurosecretory model and comparisons with shell growth and perturbation examples. DOI: 10.1073/pnas.0810311106.</p></li>
+            <li id="source-fundamental"><a href="https://arxiv.org/pdf/adap-org/9705003">Henryk Fukś &amp; Nino Boccara, “Generalized Deterministic Traffic Rules,” arXiv:adap-org/9705003 (1997) <span aria-hidden="true">↗</span></a><p>Pages 2–3: Equation (3) gives Rule 184’s long-run speed; multiplying by density as in Figure 2 gives <code>q∞ = min(ρ, 1 − ρ)</code>.</p></li>
+          </ol>
+        </section>
+      </div>
+    </div>
+    <section class="fg-closing" aria-label="Continue exploring"><p>Find a pattern.<br><em>Then find its limits.</em></p><a class="fg-action" href="laboratory.html">Back to the laboratory <span aria-hidden="true">↗</span></a></section>
+  </main>
+  <footer class="site-footer page-width"><a class="footer-brand" href="index.html">TINY RULE ATLAS <span>LABORATORY EDITION</span></a><p>Finite models. Explicit assumptions. Reproducible experiments.</p><a href="https://github.com/Tradelord223/tiny-rule-atlas">SOURCE &amp; DATA <span aria-hidden="true">↗</span></a></footer>
+</body>
+</html>

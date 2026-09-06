@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eceae2">
+  <meta name="description" content="A working cellular automata laboratory: compare rules, edit initial conditions, trace perturbations, export reproducible experiments, and investigate traffic flow with Rule 184.">
+  <title>The Laboratory — Tiny Rule Atlas</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/laboratory.css">
+  <script src="assets/laboratory.js" type="module"></script>
+</head>
+<body class="lab-page">
+  <a class="skip-link" href="#comparison">Skip to the laboratory</a>
+  <header class="site-header page-width">
+    <a class="brand" href="index.html" aria-label="Tiny Rule Atlas, home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TINY RULE<br>ATLAS</span></a>
+    <nav aria-label="Main navigation"><a href="index.html">Atlas</a><a href="laboratory.html" aria-current="page">Laboratory</a><a href="field-guide.html">Field guide</a><a href="https://github.com/Tradelord223/tiny-rule-atlas">Source ↗</a></nav>
+    <span class="edition">AN OPEN LABORATORY <span>№ 002</span></span>
+  </header>
+
+  <main class="page-width">
+    <section class="lab-intro" aria-labelledby="lab-title">
+      <div><p class="eyebrow">THE NEXT QUESTION IS YOURS</p><h1 id="lab-title">Change one thing.<br><em>Follow the difference.</em></h1></div>
+      <div class="lab-intro-note"><p>A rule is only half the story. The starting state, the edges, and the time you observe can change what you see.</p><p>Make a comparison. Test an intuition. Take the evidence with you.</p><a href="field-guide.html">Start with a guided investigation <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section id="comparison" class="comparison-section" aria-labelledby="comparison-title" tabindex="-1">
+      <div class="section-line"><span><b>01</b> THE COMPARISON BENCH</span><span class="mono">CALCULATED IN YOUR BROWSER</span></div>
+      <div class="lab-section-heading"><h2 id="comparison-title">Two worlds, side by side.</h2><p>All measurements come from the complete run. The generation inspector lets you look at one row at a time.</p></div>
+      <div class="preset-list" aria-label="Ready to run investigations">
+        <button type="button" data-preset="edges"><span>01 / EDGES</span><strong>Rule 90</strong><small>Does a boundary matter?</small></button>
+        <button type="button" data-preset="entropy"><span>02 / MEASUREMENT</span><strong>Rule 204</strong><small>Balance without change.</small></button>
+        <button type="button" data-preset="perturbation"><span>03 / SENSITIVITY</span><strong>Rule 30</strong><small>Trace a one-cell difference.</small></button>
+        <button type="button" data-preset="contexts"><span>04 / CONTEXT</span><strong>Rule 110</strong><small>One rule, different beginnings.</small></button>
+      </div>
+      <p id="investigation-note" class="investigation-note">Rule 90, identical beginnings, different edges. Look beyond generation 64, when the growing pattern can reach a boundary.</p>
+      <form id="comparison-settings" class="lab-toolbar">
+        <div><label for="lab-width">World width</label><select id="lab-width"><option value="64">64 cells</option><option value="128" selected>128 cells</option><option value="256">256 cells</option></select></div>
+        <div><label for="lab-steps">Observation window</label><select id="lab-steps"><option value="128">128 updates</option><option value="256" selected>256 updates</option><option value="512">512 updates</option><option value="1024">1,024 updates</option></select></div>
+        <button id="run-comparison" class="lab-button lab-button-primary" type="submit">Run comparison <span aria-hidden="true">↗</span></button>
+        <p>Changes recompute locally.<br>Random starts are reproducible.</p>
+      </form>
+      <p id="lab-status" class="lab-status" role="status" aria-live="polite">Opening the laboratory…</p>
+      <div id="experiment-slots" class="experiment-slots" aria-label="Experiment A and experiment B"></div>
+
+      <div class="generation-control">
+        <div><p class="eyebrow">GENERATION INSPECTOR</p><h3 id="generation-heading">Generation <output id="generation-output" for="generation">0</output></h3><p>Scrub to inspect both worlds. Time runs down each diagram; scroll inside a plot to explore its full history.</p></div>
+        <div class="generation-inputs"><label for="generation" class="visually-hidden">Selected generation for both experiments</label><input id="generation" type="range" min="0" max="256" step="1" value="0"><div class="generation-actions"><button id="previous-generation" class="lab-button" type="button" aria-label="Previous generation">← Back</button><button id="play-generations" class="lab-button lab-button-primary" type="button" aria-pressed="false">Play <span aria-hidden="true">▷</span></button><button id="next-generation" class="lab-button" type="button" aria-label="Next generation">Next →</button><span id="generation-range">0 / 256</span></div></div>
+      </div>
+
+      <div class="damage-section">
+        <div class="lab-section-heading"><div><p class="eyebrow">A SMALL CHANGE, MEASURED</p><h2>The difference over time.</h2></div><p>Within each experiment, toggle the central starting cell, rerun the same rule, and count the cells that disagree. This compares each run with its own perturbation.</p></div>
+        <div class="chart-shell"><canvas id="damage-chart" role="img" aria-describedby="damage-summary" aria-label="Per-generation fraction of cells differing from a one-cell perturbation, for experiments A and B"></canvas></div>
+        <div class="chart-legend"><span><i class="chart-line line-a" aria-hidden="true"></i>A — solid line</span><span><i class="chart-line line-b" aria-hidden="true"></i>B — dashed line</span><span>Vertical marker: inspected generation</span></div>
+        <p id="damage-summary" class="chart-summary"></p>
+        <details class="lab-details"><summary>Read the difference as a data table</summary><p>Every generation, including the initial state. Values are percentages of the world width.</p><div class="table-scroll"><table><caption>Difference from each experiment’s one-cell perturbation</caption><thead><tr><th scope="col">Generation</th><th scope="col">A difference (%)</th><th scope="col">B difference (%)</th></tr></thead><tbody id="damage-table"></tbody></table></div></details>
+      </div>
+
+      <section class="lab-export" aria-labelledby="export-title">
+        <div><p class="eyebrow">TAKE THE EVIDENCE</p><h2 id="export-title">A run you can reproduce.</h2><p>The session includes both rules, starting rows, boundaries, exact trajectories, measurements, and the traffic run. PNG exports contain the selected view at integer pixel scaling.</p></div>
+        <div class="export-controls"><div class="export-selection"><div><label for="export-slot">Export experiment</label><select id="export-slot"><option value="a">A</option><option value="b">B</option></select></div><div><label for="export-scale">PNG cell size</label><select id="export-scale"><option value="4">4 × 4 pixels</option><option value="8" selected>8 × 8 pixels</option><option value="12">12 × 12 pixels</option></select></div></div><div class="export-buttons"><button id="export-png" class="lab-button" type="button">Download plot PNG ↓</button><button id="export-csv" class="lab-button" type="button">Download series CSV ↓</button><button id="export-json" class="lab-button" type="button">Download session JSON ↓</button><button id="share-session" class="lab-button lab-button-primary" type="button">Copy session link ↗</button></div><p id="export-status" role="status" aria-live="polite">CSV includes density, activity, and perturbation difference for every generation.</p></div>
+      </section>
+    </section>
+
+    <section id="traffic" class="traffic-section" aria-labelledby="traffic-title" tabindex="-1">
+      <div class="section-line"><span><b>02</b> WHEN THE EMPTY SPACE MATTERS</span><span class="mono">RULE 184 / A RING ROAD MODEL</span></div>
+      <figure class="traffic-editorial"><img src="assets/images/traffic-study-v2.png" width="1537" height="1023" loading="lazy" alt="Editorial aerial view of a curved road with streams of cars, used as context for a simplified traffic experiment."><figcaption>AI-generated editorial illustration; simulation results appear below.</figcaption><div class="traffic-image-title" aria-hidden="true"><span>FIELD STUDY / 184</span><p>The space<br>between cars.</p></div></figure>
+      <div class="lab-section-heading traffic-heading"><div><p class="eyebrow">A REAL QUESTION. AN IDEALIZED MODEL.</p><h2 id="traffic-title">More cars.<br>Less movement?</h2></div><p>On this 128-cell ring, a car advances one cell to the right if that cell is empty. All cars update together. Add cars and observe when empty space becomes the limiting resource.</p></div>
+      <div class="traffic-grid">
+        <div class="traffic-controls">
+          <label for="traffic-density">Cars on the ring</label><div class="traffic-count"><output id="traffic-car-count" for="traffic-density">64</output><span>/ 128 cells</span></div><input id="traffic-density" type="range" min="0" max="128" step="1" value="64"><div class="traffic-range-labels"><span>Empty</span><span>Half full</span><span>Full</span></div><p id="traffic-density-readout" class="traffic-density-readout">Density: 0.500 cars per cell</p>
+          <div class="traffic-presets"><button class="lab-button" type="button" data-traffic-count="26">Light · 26 cars</button><button class="lab-button" type="button" data-traffic-count="64">Half · 64 cars</button><button class="lab-button" type="button" data-traffic-count="102">Dense · 102 cars</button></div>
+          <button id="traffic-shuffle" class="lab-button" type="button">Rearrange the same cars ↻</button><p class="traffic-help">An exact car count, placed with a deterministic shuffle. Rearranging changes the transient, while the car count stays fixed.</p>
+          <dl class="traffic-metrics"><div><dt>Observed late flow</dt><dd id="traffic-observed">—</dd></div><div><dt>Steady-state reference</dt><dd id="traffic-theoretical">—</dd></div><div><dt>Cars conserved</dt><dd id="traffic-conserved">—</dd></div></dl>
+          <p class="traffic-help">Flow is car moves per road cell per update. A moving car’s speed is one cell per update. These are dimensionless model quantities, with no conversion to vehicles per hour.</p>
+        </div>
+        <div class="traffic-observation">
+          <div class="traffic-plot-heading"><span>SPACE → / TIME ↓</span><span>128 CELLS × 256 UPDATES</span></div>
+          <div class="traffic-history-frame"><canvas id="traffic-history" role="img" aria-label="Computed Rule 184 space-time history; each bright cell is a car and each dark cell is an empty road position."></canvas></div>
+          <div class="traffic-strip-wrap"><p><span>Ring snapshot · generation <output id="traffic-generation-output" for="traffic-generation">0</output></span><span>Movement →</span></p><canvas id="traffic-strip" role="img" aria-label="Current generation of the traffic ring, unwrapped as a strip."></canvas><label for="traffic-generation">Inspect a generation</label><input id="traffic-generation" type="range" min="0" max="256" value="0" step="1"><p id="traffic-snapshot-description"></p></div>
+        </div>
+      </div>
+      <p id="traffic-insight" class="traffic-insight" aria-live="polite"></p>
+      <div class="fundamental-section"><div class="lab-section-heading"><div><p class="eyebrow">TEST THE ENTIRE RANGE</p><h2>The flow–density relationship.</h2></div><p>One computed run for every possible car count. Solid line: observed flow over updates 129–256. Dashed line: the long-run Rule 184 reference, <span class="equation">q = min(ρ, 1 − ρ)</span>.</p></div><div class="chart-shell"><canvas id="traffic-chart" role="img" aria-describedby="traffic-chart-summary" aria-label="Observed and theoretical flow versus density for all 129 possible car counts on the ring."></canvas></div><div class="chart-legend"><span><i class="chart-line line-a" aria-hidden="true"></i>Observed — solid line</span><span><i class="chart-line line-b" aria-hidden="true"></i>Reference — dashed line</span><span>Circle: selected density</span></div><p id="traffic-chart-summary" class="chart-summary">Calculating all 129 car counts…</p><details class="lab-details"><summary>Read the flow–density data table</summary><div class="table-scroll"><table><caption>Rule 184 flow over updates 129–256, one reproducible initial state per density</caption><thead><tr><th scope="col">Cars</th><th scope="col">Density</th><th scope="col">Observed flow</th><th scope="col">Reference flow</th></tr></thead><tbody id="traffic-table"></tbody></table></div></details><button id="export-traffic" class="lab-button traffic-export" type="button">Download flow–density CSV ↓</button><p id="traffic-export-status" role="status"></p></div>
+      <div class="traffic-notes"><article><span>WHAT TO LOOK FOR</span><h3>A jam can travel backward.</h3><p>Cars move right, but holes move left through a crowded region. In the space-time plot, follow the empty cells: a pattern can travel against the motion of its parts.</p></article><article><span>WHY HALF FULL MATTERS</span><h3>Movement needs a vacancy.</h3><p>At low density, cars limit the flow. Above half occupancy, empty cells limit it. A full ring has no space to move, so its flow is zero.</p></article><article><span>WHERE THE MODEL STOPS</span><h3>A lens, not a road forecast.</h3><p>Every car is identical. There is no braking delay, lane change, reaction time, road entry, or randomness during an update. This model isolates exclusion; it is not a calibrated traffic predictor.</p></article></div>
+      <a class="lab-method-link" href="docs/laboratory-methods.md">Read the complete measurement definitions and limitations ↗</a>
+    </section>
+  </main>
+  <footer class="site-footer page-width"><a class="footer-brand" href="index.html">TINY RULE ATLAS <span>↗</span></a><p>Small enough to understand. Rich enough to investigate.</p><a href="field-guide.html">Field guide ↗</a><a href="https://github.com/Tradelord223/tiny-rule-atlas">Source on GitHub ↗</a></footer>
+  <noscript><p class="noscript-message">This laboratory requires JavaScript to compute experiments. The <a href="field-guide.html">field guide</a> and <a href="https://github.com/Tradelord223/tiny-rule-atlas">source data</a> remain available without it.</p></noscript>
+
+  <template id="experiment-template">
+    <article class="experiment-card">
+      <header class="experiment-heading"><div><span class="slot-letter"></span><h3></h3></div><span class="slot-run-label">LOCAL COMPUTATION</span></header>
+      <div class="experiment-fields"><div><label data-for="rule">Rule number</label><input data-input="rule" type="number" min="0" max="255" step="1" inputmode="numeric"></div><div><label data-for="seed">Starting state</label><select data-input="seed"><option value="single">Single cell</option><option value="pair">Adjacent pair</option><option value="block">Eight-cell block</option><option value="alternating">Alternating</option><option value="period3">Every third cell</option><option value="sparse">Sparse random</option><option value="balanced">Balanced random</option><option value="dense">Dense random</option></select></div><div><label data-for="boundary">At the edges</label><select data-input="boundary"><option value="wrap">Wrap around</option><option value="fixed">Fixed zero</option></select></div></div>
+      <p class="slot-boundary-help"></p>
+      <details class="seed-editor"><summary>Edit the initial row <span class="custom-indicator"></span></summary><p class="seed-editor-help">Click a cell to toggle it. For keyboard editing, enter the indices of every live cell below, separated by commas. An empty field means an empty world.</p><div class="seed-canvas-wrap"><canvas class="seed-canvas" role="img" aria-label="Editable initial row. Use the live cell indices field below for keyboard editing."></canvas></div><label data-for="initial">Live cell indices</label><input data-input="initial" type="text" autocomplete="off" spellcheck="false" placeholder="For example: 4, 5, 12"><div class="seed-actions"><button type="button" data-action="apply-initial" class="lab-button">Apply row</button><button type="button" data-action="toggle-center" class="lab-button">Toggle center cell</button><button type="button" data-action="reset-seed" class="lab-button">Reset to starting state</button></div><p class="seed-state" role="status"></p></details>
+      <div class="slot-rule-key"><p><span>THE EIGHT NEIGHBORHOODS</span><span class="rule-bits"></span></p><div class="slot-rule-diagram"></div></div>
+      <div class="slot-view"><label data-for="view">Show trajectory</label><select data-input="view"><option value="primary">Primary run</option><option value="perturbed">Perturbed run · center toggled</option><option value="difference">Difference · unequal cells</option></select></div>
+      <div class="slot-observation"><div class="slot-plot-meta"><span class="slot-plot-id"></span><span>TIME ↓</span></div><div class="slot-plot-frame"><canvas class="slot-trajectory" role="img"></canvas><div class="generation-marker" aria-hidden="true"></div></div><div class="slot-legend"><span><i class="legend-square legend-active" aria-hidden="true"></i><span class="active-label">Live cell · 1</span></span><span><i class="legend-square legend-empty" aria-hidden="true"></i><span class="empty-label">Empty cell · 0</span></span></div><div class="slot-row-inspector"><p class="inspected-row-label"></p><canvas class="inspected-row" role="img"></canvas><p class="inspected-row-summary"></p></div></div>
+      <dl class="slot-metrics"><div><dt>Live-cell density</dt><dd data-metric="density">—</dd></div><div><dt>Activity</dt><dd data-metric="activity">—</dd></div><div><dt>Mean difference</dt><dd data-metric="mean_damage">—</dd></div><div><dt>Occupancy entropy</dt><dd data-metric="entropy_bits">—</dd></div></dl>
+      <p class="slot-metric-note">Density and difference average all rows; activity averages transitions. Entropy measures live/dead balance, not complexity. These metrics always describe the primary run and its perturbation.</p>
+      <div class="slot-cycle"><span aria-hidden="true">↺</span><p></p></div>
+    </article>
+  </template>
+</body>
+</html>

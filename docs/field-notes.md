@@ -61,7 +61,7 @@ constructed initial conditions can encode universal computation. The proof
 uses an infinite row and carefully arranged backgrounds and signals. Eight
 short, finite seeds do not reproduce that construction or test universality.
 They provide accessible examples of the rule's local dynamics.
-[Cook, “Universality in Elementary Cellular Automata,” 2004](https://www.complex-systems.com/pdf/15-1-1.pdf)
+[Cook, “Universality in Elementary Cellular Automata,” 2004](https://www.complex-systems.com/abstracts/v15_i01_a01/)
 
 Explore **110 / single** and **110 / balanced** as different starting contexts.
 Repeated textures and moving boundaries are things to examine; recognizing a

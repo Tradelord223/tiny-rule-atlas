@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#eceae2">
-  <meta name="description" content="Explore 4,096 reproducible cellular automata experiments. 256 simple rules, eight starting states, and two kinds of edges.">
-  <title>Tiny Rule Atlas — An observation of emergence</title>
+  <meta name="description" content="Explore 4,096 recorded experiments, compare cellular automata in a live laboratory, investigate traffic flow, and follow six research-led lessons.">
+  <title>Tiny Rule Atlas — Laboratory Edition</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script src="assets/app.js" type="module"></script>
@@ -14,14 +14,32 @@
   <a class="skip-link" href="#explorer">Skip to explorer</a>
   <header class="site-header page-width">
     <a class="brand" href="#explorer" aria-label="Tiny Rule Atlas, explorer"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>TINY RULE<br>ATLAS</span></a>
-    <nav aria-label="Main navigation"><a href="#explorer">Explorer</a><a href="#catalog">The atlas <span>↗</span></a><a href="#method">Method</a></nav>
-    <span class="edition">A STUDY IN EMERGENCE <span>№ 001</span></span>
+    <nav aria-label="Main navigation"><a href="#explorer" aria-current="page">Explorer</a><a href="laboratory.html">Laboratory</a><a href="field-guide.html">Field guide</a></nav>
+    <span class="edition">LABORATORY EDITION <span>v0.2</span></span>
   </header>
 
   <main class="page-width">
     <section class="intro" aria-labelledby="page-title">
       <div><p class="eyebrow"><span class="live-dot"></span> SIMPLE SYSTEMS / STRANGE BEHAVIOR</p><h1 id="page-title">Small rules.<br><em>Unruly worlds.</em></h1></div>
       <div class="intro-aside"><p>Three neighbors. Two possible states.<br>Watch a single rule become a world.</p><div class="inventory"><span><strong>256</strong> rules</span><span><strong>8</strong> starting states</span><span><strong>2</strong> edges</span></div><p class="record-count">4,096 recorded experiments <span aria-hidden="true">↓</span></p></div>
+    </section>
+
+    <section class="edition-paths" aria-label="Choose an investigation">
+      <a class="edition-path" href="laboratory.html">
+        <span class="edition-path-number">01 / EXPERIMENT</span>
+        <strong>Build a comparison. <span aria-hidden="true">↗</span></strong>
+        <p>Change one assumption, track a perturbation, and export the evidence.</p>
+      </a>
+      <a class="edition-path" href="field-guide.html">
+        <span class="edition-path-number">02 / UNDERSTAND</span>
+        <strong>Follow the questions. <span aria-hidden="true">↗</span></strong>
+        <p>Six guided investigations, primary sources, and a classroom route.</p>
+      </a>
+      <a class="edition-path edition-path-compact" href="#catalog">
+        <span class="edition-path-number">03 / BROWSE</span>
+        <strong>Inspect the corpus. <span aria-hidden="true">↓</span></strong>
+        <p>4,096 stored experiments, with complete trajectories and measurements.</p>
+      </a>
     </section>
 
     <section id="explorer" class="explorer-section" aria-label="Interactive rule explorer" tabindex="-1">
@@ -69,8 +87,39 @@
       <div class="catalog-pagination"><button id="catalog-prev" type="button" disabled>← Previous</button><span id="catalog-page">Page —</span><button id="catalog-next" type="button" disabled>Next →</button></div>
     </section>
 
+    <section class="world-studies" aria-labelledby="world-studies-title">
+      <div class="section-line"><span><b>03</b> QUESTIONS BEYOND THE PICTURE</span><span class="mono">MODELS, MECHANISMS, LIMITS</span></div>
+      <div class="world-studies-heading">
+        <p class="eyebrow">MAKE THE CONNECTION PRECISE</p>
+        <h2 id="world-studies-title">What can a small model teach us?</h2>
+        <p>A useful model gives us a controlled question. The next step is to distinguish what it demonstrates from what the wider world still asks us to measure.</p>
+      </div>
+      <div class="world-study-grid">
+        <article class="world-study">
+          <figure>
+            <a href="laboratory.html#traffic" aria-label="Open the traffic-flow laboratory"><img src="assets/images/traffic-study-v2.png" width="1537" height="1023" loading="lazy" decoding="async" alt="Photorealistic editorial illustration of cars at different spacings on a circular traffic research track."></a>
+            <figcaption>AI-generated editorial illustration; the laboratory contains the computed experiment.</figcaption>
+          </figure>
+          <p class="eyebrow">RULE 184 / TRANSPORT</p>
+          <h3>When more cars mean less flow.</h3>
+          <p>Set the density of a closed road. Count the cars that move, watch queues form, and compare the observed flow with the model’s long-run prediction.</p>
+          <a class="study-link" href="laboratory.html#traffic">Investigate traffic flow <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="world-study">
+          <figure>
+            <a href="field-guide.html#nature" aria-label="Read the investigation of natural patterns"><img src="assets/images/shell-study-v2.png" width="1536" height="1024" loading="lazy" decoding="async" alt="Photorealistic editorial illustration of a cone snail shell with intricate cream and brown pigmentation on dark stone."></a>
+            <figcaption>AI-generated editorial illustration; not a measured biological specimen.</figcaption>
+          </figure>
+          <p class="eyebrow">PATTERN / EXPLANATION</p>
+          <h3>A resemblance starts a question.</h3>
+          <p>Natural patterns can suggest local mechanisms. Learn why a convincing visual match still needs a model of the process, measurements, and a test that could prove it wrong.</p>
+          <a class="study-link" href="field-guide.html#nature">Read the field investigation <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </section>
+
     <section id="method" class="method-section" aria-labelledby="method-title">
-      <div class="section-line"><span><b>03</b> NOTES ON THE METHOD</span><span class="mono">REPRODUCIBLE BY CONSTRUCTION</span></div>
+      <div class="section-line"><span><b>04</b> NOTES ON THE METHOD</span><span class="mono">REPRODUCIBLE BY CONSTRUCTION</span></div>
       <div class="method-layout"><div><p class="eyebrow">A LITTLE CONTEXT</p><h2 id="method-title">Look closely.<br>Measure carefully.</h2><p class="provenance">Generated computational experiments; one record per parameter combination.</p></div><div class="method-notes"><article><span>01 / THE SYSTEM</span><h3>A whole world in one line.</h3><p>Each of 128 cells is on or off. Its next state depends on itself and its two neighbors. The eight possible neighborhoods give us 256 rules. We record 128 updates, plus the initial row, for each rule, starting state, and boundary.</p></article><article><span>02 / REPRODUCIBILITY</span><h3>Nothing up our sleeves.</h3><p>Every observation is a stored trajectory with a SHA-256 digest. Random starting states use a fixed xorshift32 seed; sparse, balanced, and dense states are deliberately nested. Catalog previews run the same rule locally. The main window displays the stored rows.</p></article><article><span>03 / INTERPRETATION</span><h3>No single score means “complex.”</h3><p>Occupancy entropy measures live/dead balance, not algorithmic complexity. Compression is a descriptive heuristic that depends on the zlib implementation. Perturbation compares a run with another whose central starting cell is toggled.</p></article><article><span>04 / RECURRENCE</span><h3>A short window is still a window.</h3><p>A detected cycle is an exact repetition of a full state in this finite deterministic system. “No cycle observed” only covers these 128 updates. It does not rule out a later cycle.</p></article></div></div>
     </section>
   </main>

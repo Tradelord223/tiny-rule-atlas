@@ -22,4 +22,10 @@ jobs:
       - name: Recalculate and verify all experiments
         run: python atlas.py verify
       - name: Validate browser JavaScript syntax
-        run: node --check assets/app.js
+        run: |
+          node --check assets/app.js
+          node --input-type=module --check < assets/laboratory.js
+      - name: Laboratory parity, perturbation, and traffic checks
+        run: node --test tests/lab-core.test.mjs
+      - name: Static pages, local assets, and section anchors
+        run: python scripts/check_site.py
